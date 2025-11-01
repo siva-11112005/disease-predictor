@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedPredict - Clinical Disease Prediction System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="#2563EB"/>
+                        <path d="M16 8V24M10 16H22" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>MedPredict</h1>
+                    <span>Clinical Prediction System</span>
+                </div>
+            </div>
+            <div class="nav-status">
+                <div id="system-status" class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Language Selector (CORRECT POSITION) -->
+    <div class="language-selector">
+        <div class="nav-container">
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="en">
+                    🇬🇧 English
+                </button>
+                <button class="lang-btn" data-lang="ta">
+                    தமிழ் Tamil
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Diagnostic Tools</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-tab="heart-attack">
+                    <span class="nav-icon">⚡</span>
+                    <span class="nav-label">Heart Attack</span>
+                </button>
+                <button class="nav-item" data-tab="heart-disease">
+                    <span class="nav-icon">❤️</span>
+                    <span class="nav-label">Heart Disease</span>
+                </button>
+                <button class="nav-item" data-tab="diabetes">
+                    <span class="nav-icon">💉</span>
+                    <span class="nav-label">Diabetes</span>
+                </button>
+                <button class="nav-item" data-tab="kidney">
+                    <span class="nav-icon">🫘</span>
+                    <span class="nav-label">Kidney Disease</span>
+                </button>
+                <button class="nav-item" data-tab="breast-cancer">
+                    <span class="nav-icon">🎗️</span>
+                    <span class="nav-label">Breast Cancer</span>
+                </button>
+                <button class="nav-item" data-tab="liver">
+                    <span class="nav-icon">🫀</span>
+                    <span class="nav-label">Liver Disease</span>
+                </button>
+                <button class="nav-item" data-tab="general">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-label">Symptom Checker</span>
+                </button>
+                <div class="nav-divider"></div>
+                <button class="nav-item" data-tab="stats">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Statistics</span>
+                </button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="disclaimer-compact">
+                    <strong>⚕️ Medical Tool</strong>
+                    <p>For educational purposes only. Not a substitute for professional medical advice.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content-area">
+            <!-- Medical Disclaimer Banner -->
+            <div class="alert alert-warning">
+                <strong>⚠️ Important Medical Disclaimer:</strong> This is an educational AI tool. Always consult qualified healthcare professionals for diagnosis and treatment decisions.
+            </div>
+            <!-- Heart Attack Tab -->
+            <div id="heart-attack-tab" class="content-panel active">
+                <div class="panel-header">
+                    <h2>Heart Attack Risk Assessment</h2>
+                    <p class="panel-subtitle">Cardiovascular emergency risk prediction based on clinical parameters</p>
+                </div>
+
+                <form id="heart-attack-form" class="clinical-form">
+                    <div class="form-section">
+                        <h4 class="section-title">Patient Demographics</h4>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Age (years)</label>
+                                <input type="number" id="ha-age" min="1" max="120" required>
+                                <span class="field-hint">Patient age in years</span>
+                            </div>
+                            <div class="form-field">
+                                <label>Sex</label>
+                                <select id="ha-sex" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Chest Pain Type</label>
+                                <select id="ha-cp" required>
+                                    <option value="">Select</option>
+                                    <option value="0">Typical Angina</option>
+                                    <option value="1">Atypical Angina</option>
+                                    <option value="2">Non-anginal Pain</option>
+                                    <option value="3">Asymptomatic</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4 class="section-title">Vital Signs & Lab Results</h4>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Resting BP (mm Hg)</label>
+                                <input type="number" id="ha-trestbps" min="80" max="200" required>
+                                <span class="field-hint">Normal: 90-120</span>
+                            </div>
+                            <div class="form-field">
+                                <label>Cholesterol (mg/dl)</label>
+                                <input type="number" id="ha-chol" min="100" max="600" required>
+                                <span class="field-hint">Normal: < 200</span>
+                            </div>
+                            <div class="form-field">
+                                <label>Fasting Blood Sugar</label>
+                                <select id="ha-fbs" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Above 120 mg/dl</option>
+                                    <option value="0">Below 120 mg/dl</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4 class="section-title">Cardiac Testing</h4>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Resting ECG</label>
+                                <select id="ha-restecg" required>
+                                    <option value="">Select</option>
+                                    <option value="0">Normal</option>
+                                    <option value="1">ST-T Wave Abnormality</option>
+                                    <option value="2">Left Ventricular Hypertrophy</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Maximum Heart Rate</label>
+                                <input type="number" id="ha-thalach" min="60" max="220" required>
+                                <span class="field-hint">During exercise</span>
+                            </div>
+                            <div class="form-field">
+                                <label>Exercise Induced Angina</label>
+                                <select id="ha-exang" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>ST Depression</label>
+                                <input type="number" id="ha-oldpeak" min="0" max="7" step="0.1" required>
+                                <span class="field-hint">Exercise vs rest</span>
+                            </div>
+                            <div class="form-field">
+                                <label>ST Slope</label>
+                                <select id="ha-slope" required>
+                                    <option value="">Select</option>
+                                    <option value="0">Upsloping</option>
+                                    <option value="1">Flat</option>
+                                    <option value="2">Downsloping</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Major Vessels (0-4)</label>
+                                <select id="ha-ca" required>
+                                    <option value="">Select</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                <span class="field-hint">Fluoroscopy colored</span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Thalassemia</label>
+                                <select id="ha-thal" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Normal</option>
+                                    <option value="2">Fixed Defect</option>
+                                    <option value="3">Reversible Defect</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span>Analyze Risk</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+
+                <div id="heart-attack-results" class="results-panel" style="display: none;"></div>
+            </div>
+
+            <!-- Heart Disease Tab -->
+            <div id="heart-disease-tab" class="content-panel">
+                <div class="panel-header">
+                    <h2>Heart Disease Assessment</h2>
+                    <p class="panel-subtitle">General cardiovascular disease prediction</p>
+                </div>
+                <form id="heart-disease-form" class="clinical-form">
+                    <div class="form-section">
+                        <h4 class="section-title">Clinical Parameters</h4>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Age</label>
+                                <input type="number" id="hd-age" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Sex</label>
+                                <select id="hd-sex" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Chest Pain</label>
+                                <select id="hd-cp" required>
+                                    <option value="">Select</option>
+                                    <option value="0">Typical Angina</option>
+                                    <option value="1">Atypical Angina</option>
+                                    <option value="2">Non-anginal</option>
+                                    <option value="3">Asymptomatic</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Blood Pressure</label>
+                                <input type="number" id="hd-trestbps" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Cholesterol</label>
+                                <input type="number" id="hd-chol" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Fasting BS > 120</label>
+                                <select id="hd-fbs" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Resting ECG</label>
+                                <select id="hd-restecg" required>
+                                    <option value="">Select</option>
+                                    <option value="0">Normal</option>
+                                    <option value="1">ST-T Abnormality</option>
+                                    <option value="2">Hypertrophy</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Max Heart Rate</label>
+                                <input type="number" id="hd-thalach" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Exercise Angina</label>
+                                <select id="hd-exang" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>ST Depression</label>
+                                <input type="number" id="hd-oldpeak" step="0.1" required>
+                            </div>
+                            <div class="form-field">
+                                <label>ST Slope</label>
+                                <select id="hd-slope" required>
+                                    <option value="">Select</option>
+                                    <option value="0">Upsloping</option>
+                                    <option value="1">Flat</option>
+                                    <option value="2">Downsloping</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Major Vessels</label>
+                                <select id="hd-ca" required>
+                                    <option value="">Select</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Thalassemia</label>
+                                <select id="hd-thal" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Normal</option>
+                                    <option value="2">Fixed Defect</option>
+                                    <option value="3">Reversible Defect</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span>Analyze Risk</span>
+                        </button>
+                    </div>
+                </form>
+                <div id="heart-disease-results" class="results-panel" style="display: none;"></div>
+            </div>
+
+            <!-- Diabetes Tab -->
+            <div id="diabetes-tab" class="content-panel">
+                <div class="panel-header">
+                    <h2>Diabetes Type 2 Screening</h2>
+                    <p class="panel-subtitle">Based on Pima Indians Diabetes Database</p>
+                </div>
+                <form id="diabetes-form" class="clinical-form">
+                    <div class="form-section">
+                        <h4 class="section-title">Patient Data</h4>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Pregnancies</label>
+                                <input type="number" id="db-pregnancies" min="0" value="0" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Glucose (mg/dL)</label>
+                                <input type="number" id="db-glucose" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Blood Pressure</label>
+                                <input type="number" id="db-bp" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Skin Thickness (mm)</label>
+                                <input type="number" id="db-skin" value="0">
+                            </div>
+                            <div class="form-field">
+                                <label>Insulin (mu U/ml)</label>
+                                <input type="number" id="db-insulin" value="0">
+                            </div>
+                            <div class="form-field">
+                                <label>BMI</label>
+                                <input type="number" id="db-bmi" step="0.1" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Diabetes Pedigree</label>
+                                <input type="number" id="db-pedigree" step="0.001" required>
+                                <span class="field-hint">Family history (0.078-2.42)</span>
+                            </div>
+                            <div class="form-field">
+                                <label>Age</label>
+                                <input type="number" id="db-age" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span>Screen for Diabetes</span>
+                        </button>
+                    </div>
+                </form>
+                <div id="diabetes-results" class="results-panel" style="display: none;"></div>
+            </div>
+
+            <!-- Kidney Disease Tab -->
+            <div id="kidney-tab" class="content-panel">
+                <div class="panel-header">
+                    <h2>Chronic Kidney Disease Screening</h2>
+                    <p class="panel-subtitle">CKD detection based on clinical parameters</p>
+                </div>
+                <form id="kidney-form" class="clinical-form">
+                    <div class="form-section">
+                        <h4 class="section-title">Clinical Data</h4>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Age</label>
+                                <input type="number" id="kd-age" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Blood Pressure</label>
+                                <input type="number" id="kd-bp" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Specific Gravity</label>
+                                <input type="number" id="kd-sg" step="0.005" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Albumin</label>
+                                <select id="kd-al" required>
+                                    <option value="">Select</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Sugar</label>
+                                <select id="kd-su" required>
+                                    <option value="">Select</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Red Blood Cells</label>
+                                <select id="kd-rbc" required>
+                                    <option value="">Select</option>
+                                    <option value="normal">Normal</option>
+                                    <option value="abnormal">Abnormal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Blood Glucose</label>
+                                <input type="number" id="kd-bgr" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Blood Urea</label>
+                                <input type="number" id="kd-bu" step="0.1" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Serum Creatinine</label>
+                                <input type="number" id="kd-sc" step="0.1" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Hemoglobin</label>
+                                <input type="number" id="kd-hemo" step="0.1" required>
+                            </div>
+                            <div class="form-field">
+                                <label>WBC Count</label>
+                                <input type="number" id="kd-wbcc" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Hypertension</label>
+                                <select id="kd-htn" required>
+                                    <option value="">Select</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Diabetes Mellitus</label>
+                                <select id="kd-dm" required>
+                                    <option value="">Select</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span>Screen for CKD</span>
+                        </button>
+                    </div>
+                </form>
+                <div id="kidney-results" class="results-panel" style="display: none;"></div>
+            </div>
+
+            <!-- Breast Cancer Tab -->
+            <div id="breast-cancer-tab" class="content-panel">
+                <div class="panel-header">
+                    <h2>Breast Cancer Detection</h2>
+                    <p class="panel-subtitle">Tumor classification based on cell nucleus characteristics</p>
+                </div>
+                <form id="breast-cancer-form" class="clinical-form">
+                    <div class="form-section">
+                        <h4 class="section-title">Tumor Measurements</h4>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Radius Mean</label>
+                                <input type="number" id="bc-radius" step="0.01" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Texture Mean</label>
+                                <input type="number" id="bc-texture" step="0.01" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Perimeter Mean</label>
+                                <input type="number" id="bc-perimeter" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Area Mean</label>
+                                <input type="number" id="bc-area" step="0.01" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Smoothness Mean</label>
+                                <input type="number" id="bc-smoothness" step="0.0001" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Compactness Mean</label>
+                                <input type="number" id="bc-compactness" step="0.0001" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Concavity Mean</label>
+                                <input type="number" id="bc-concavity" step="0.0001" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Concave Points</label>
+                                <input type="number" id="bc-concave-points" step="0.0001" required>
+                            </div>
+                            <div class="form-field">
+                                <label>Symmetry Mean</label>
+                                <input type="number" id="bc-symmetry" step="0.0001" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Fractal Dimension</label>
+                                <input type="number" id="bc-fractal" step="0.0001" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span>Classify Tumor</span>
+                        </button>
+                    </div>
+                </form>
+                <div id="breast-cancer-results" class="results-panel" style="display: none;"></div>
+            </div>
+
+            <div id="general-tab" class="content-panel">
+                <div class="panel-header">
+                    <h2 id="symptom-title">Advanced Symptom-Based Diagnosis</h2>
+                    <p class="panel-subtitle" id="symptom-subtitle">Select symptoms for AI-powered disease prediction (90-95% accuracy)</p>
+                    
+                    <!-- Accuracy Badge -->
+                    <div class="accuracy-badge">
+                        <div class="badge-item">
+                            <span class="badge-icon">🧠</span>
+                            <span class="badge-text">Neural Network AI</span>
+                        </div>
+                        <div class="badge-item">
+                            <span class="badge-icon">📊</span>
+                            <span class="badge-text">90-95% Accuracy</span>
+                        </div>
+                        <div class="badge-item">
+                            <span class="badge-icon">🌐</span>
+                            <span class="badge-text">Multi-Language</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <input type="text" id="symptom-search" placeholder="Search symptoms..." data-en-placeholder="Search symptoms..." data-ta-placeholder="அறிகுறிகளைத் தேடுங்கள்...">
+                </div>
+
+                <!-- Symptom Categories Filter -->
+                <div class="category-filter">
+                    <button class="category-btn active" data-category="all">
+                        <span data-en="All Symptoms" data-ta="அனைத்து அறிகுறிகள்">All Symptoms</span>
+                    </button>
+                    <button class="category-btn" data-category="cardiac">
+                        <span data-en="❤️ Cardiac" data-ta="❤️ இதயம்">❤️ Cardiac</span>
+                    </button>
+                    <button class="category-btn" data-category="respiratory">
+                        <span data-en="🫁 Respiratory" data-ta="🫁 சுவாசம்">🫁 Respiratory</span>
+                    </button>
+                    <button class="category-btn" data-category="neurological">
+                        <span data-en="🧠 Neurological" data-ta="🧠 நரம்பு">🧠 Neurological</span>
+                    </button>
+                    <button class="category-btn" data-category="digestive">
+                        <span data-en="🔥 Digestive" data-ta="🔥 செரிமானம்">🔥 Digestive</span>
+                    </button>
+                    <button class="category-btn" data-category="metabolic">
+                        <span data-en="⚡ Metabolic" data-ta="⚡ வளர்சிதை">⚡ Metabolic</span>
+                    </button>
+                </div>
+
+                <!-- Selected Count -->
+                <div class="selected-count">
+                    <span id="symptom-count">0</span> 
+                    <span data-en="symptoms selected" data-ta="அறிகுறிகள் தேர்ந்தெடுக்கப்பட்டன">symptoms selected</span>
+                </div>
+
+                <!-- Symptoms Grid -->
+                <div id="symptoms-container" class="symptoms-list-advanced">
+                    <p class="loading">Loading symptoms...</p>
+                </div>
+
+                <!-- Selected Symptoms Box -->
+                <div id="selected-symptoms-box" class="selected-box-advanced">
+                    <h4 data-en="Selected Symptoms" data-ta="தேர்ந்தெடுக்கப்பட்ட அறிகுறிகள்">Selected Symptoms</h4>
+                    <div id="selected-symptoms-list"></div>
+                </div>
+
+                <!-- Additional Patient Info -->
+                <div class="additional-info">
+                    <h4 data-en="Additional Information (Optional)" data-ta="கூடுதல் தகவல் (விரும்பினால்)">Additional Information (Optional)</h4>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label data-en="Age" data-ta="வயது">Age</label>
+                            <input type="number" id="patient-age-symptom" min="1" max="120" placeholder="Enter age">
+                        </div>
+                        <div class="form-field">
+                            <label data-en="Gender" data-ta="பாலினம்">Gender</label>
+                            <select id="patient-gender-symptom">
+                                <option value="">Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Predict Button -->
+                <div class="form-actions">
+                    <button id="general-predict-btn" class="btn btn-primary btn-large">
+                        <span data-en="🔬 Analyze with AI" data-ta="🔬 AI மூலம் பகுப்பாய்வு">🔬 Analyze with AI</span>
+                    </button>
+                </div>
+
+                <!-- Results -->
+                <div id="general-results" class="prediction-results" style="display: none;"></div>
+            </div>
+
+            <!-- Statistics Tab -->
+            <div id="stats-tab" class="content-panel">
+                <div class="panel-header">
+                    <h2>System Statistics</h2>
+                    <p class="panel-subtitle">Model performance and dataset information</p>
+                </div>
+                <div id="stats-container" class="stats-grid"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loading-overlay" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="loader-spinner"></div>
+            <p id="loading-text">Processing...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
