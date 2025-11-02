@@ -1,6 +1,6 @@
 // Configuration
 const CONFIG = {
-    API_BASE_URL: 'https://disease-predictor-541h.onrender.com',
+ API_BASE_URL: 'https://disease-predictor-541h.onrender.com/api',
     DEBOUNCE_DELAY: 300,
     TOAST_DURATION: 3000,
     MAX_SYMPTOMS: 20
