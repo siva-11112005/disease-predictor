@@ -1222,8 +1222,8 @@ body {
     align-items: flex-start;
     gap: 4px;
     padding: 12px 18px;
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-color));
-    color: white;
+     background: linear-gradient(135deg, #DBEAFE, #EFF6FF); /* Softer blue background */
+    color: var(--gray-900); /* Dark text for visibility */
     border-radius: 12px;
     margin: 5px;
     position: relative;
@@ -1238,13 +1238,16 @@ body {
 .selected-tag-label-en {
     font-size: 14px;
     font-weight: 600;
+    color: var(--gray-900);
 }
 
 .selected-tag-label-ta {
     font-size: 12px;
     opacity: 0.9;
+    color: var(--gray-700);
     font-family: 'Noto Sans Tamil', sans-serif;
 }
+
 
 .remove-symptom-btn-advanced {
     position: absolute;
