@@ -330,7 +330,9 @@ app.get('/api/statistics', async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
-
+app.get('/api/*', (req, res) => {
+  res.status(404).json({ success: false, error: 'API route not found' });
+});
 // Serve frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
